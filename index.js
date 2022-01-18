@@ -1,77 +1,74 @@
-/*
-
-UŽDUOTIS: 
-
--perskaityti visų produktų failus;
--susidėti visus produktus į vieną bendrą masyvą;
--išspausdinti produktų lentelę, kuri atrodys taip (žr. žemiau)
-
-"Univermagas" pardavime turi:
-----------------------------
-1) Prekės pavadinimas: kaina valiuta; parduota: [kiekis]; likutis: [kiekis];
-2) Prekės pavadinimas: kaina valiuta; parduota: [kiekis]; likutis: [kiekis];
-3) Prekės pavadinimas: kaina valiuta; parduota: [kiekis]; likutis: [kiekis];
-----------------------------
-Parduotuvės suvestinė:
-- turimų prekių sandėlyje: [total kiekis]
-- parduotų prekių prekių: [total kiekis]
-- suprekiauta suma: [total pinigu] [valiuta]
-- maksimalus parduotuvės pardavimai: [total pinigu] [valiuta]
-
-*/
-
-const futureProfit = require("./lib/futureProfit.js");
 const jsonParse = require("./lib/jsonParse.js");
+const printList = require("./lib/printList.js");
 const readFile = require("./lib/readFile.js");
-const profit = require("./lib/profit.js");
-
-console.log(readFile());
-// console.log(profit());
 
 (async() => {
-    const prekes = ["arbata", "kvepalai", "masinos", "kebabai"];
+    const goods = [
+        // 'arbata',
+        // 'arba',
+        // 'kvepalai',
+        // 'masina',
+        'masina-wrong-1',
+        'masina-wrong-2',
+        'masina-wrong-3',
+        'masina-wrong-4',
+        'masina-wrong-5',
+        'masina-wrong-6',
+        'masina-wrong-7',
+        'masina-wrong-8',
+        'masina-wrong-9',
+        'masina-wrong-10',
+        'masina-wrong-11',
+        'masina-wrong-12',
+        'masina-wrong-13',
+        'masina-wrong-14',
+        'masina-wrong-15',
+        'masina-wrong-16',
+        'masina-wrong-17',
+        'masina-wrong-18',
+        'masina-wrong-19',
+        'masina-wrong-20',
+        'masina-wrong-21',
+        // 'masina-wrong-22',
+        // 'masina-wrong-23',
+        // 'masina-wrong-24',
+        // 'masina-wrong-25',
+        // 'masina-wrong-26',
+        // 'masina-wrong-27',
+        // 'masina-wrong-28',
+        // 'masina-wrong-29',
+        // 'masina-wrong-30',
+        'pomidoras',
+        '',
+        5,
+        true,
+        false,
+        null,
+        () => {},
+        [],
+        {},
+        undefined
+    ];
 
-    const prekiuInfo = [];
+    const goodsInfo = [];
 
-    for (const preke of prekes) {
-        const fileContent = await readFile(preke);
-
-        if (typeof fileContent == "string") {
-            if (jsonParse(fileContent)[0] !== true) {
-                prekiuInfo.push(jsonParse(fileContent)[1]);
-            } else {
-                console.log("SORI, NERASTA:", preke);
-            }
-        } else {
-            console.log("FAILAS NERASTAS:", preke);
+    for (const item of goods) {
+        if (typeof item !== 'string' || item === '') {
+            continue;
         }
-    }
-    console.log("prekiu info:", prekiuInfo);
-
-    // console.log(await readFile("arbata"));
-    // console.log(await readFile("kvepalai"));
-    // console.log(await readFile("masinos"));
-    // console.log(await readFile("kebabas"));
-
-    // const parduotuve = [];
-    // console.log(parduotuve);
-
-    for (let i = 0; i < prekiuInfo.length; i++) {
-        const prekesRusis = prekiuInfo[i]
-
-        console.log(`${prekesRusis.name}: ${prekesRusis.price.value} ${prekesRusis.price.currency}; parduota: ${prekesRusis.sold}; likutis: ${prekesRusis.inStock}`);
-    }
-    for (let i = 0; i < prekiuInfo.length; i++) {
-        const prekesRusis = prekiuInfo[i]
-        const apyvarta = (prekesRusis.sold * prekesRusis.price.value).toFixed(2)
-        const nesuprekiautaApyvarta = (prekesRusis.inStock * prekesRusis.price.value).toFixed(2)
-        console.log('apyvarta', apyvarta)
-
-        console.log(`Parduotuvės suvestinė:
-        - turimų prekių sandėlyje: ${prekesRusis.inStock}
-        - parduotų prekių prekių: ${prekesRusis.sold}
-        - suprekiauta suma: ${apyvarta} ${prekesRusis.price.currency}
-        - maksimalus parduotuvės pardavimai: ${nesuprekiautaApyvarta} ${prekesRusis.price.currency}`);
+        const itemText = await readFile(item);
+        if (typeof itemText !== 'string' || itemText === '') {
+            continue;
+        }
+        const itemObj = jsonParse(itemText);
+        if (itemObj === false) {
+            continue;
+        }
+        goodsInfo.push(itemObj);
     }
 
+    console.log('"Univermagas" pardavime turi:');
+    console.log('-----------------------------');
+    console.log(printList(goodsInfo));
+    console.log('-----------------------------');
 })();
