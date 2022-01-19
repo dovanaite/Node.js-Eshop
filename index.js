@@ -93,6 +93,7 @@ const maxProfit = require("./lib/maxProfit.js");
         // console.log('ITEMS HERE', itemObj);
         // console.log('ITEMS TEXT HERE', itemText);
     }
+    const currency = goodsInfo[2].price.currency;
     console.log('**********************************');
     console.log('GOODS INFO', goodsInfo);
     console.log('"Univermagas" pardavime turi:');
@@ -101,11 +102,10 @@ const maxProfit = require("./lib/maxProfit.js");
     console.log('-----------------------------');
     console.log('Parduotuves suvestine:');
     console.log(`- turimu prekiu sandelyje: ${inStockTotalCount(goodsInfo)}`);
-
     console.log(`- parduotu prekiu: ${soldTotalCount(goodsInfo)}`);
-    console.log(`- suprekiauta suma: ${profit(goodsInfo)} ${goodsInfo[2].price.currency}`);
-    console.log(`- galimu pardavimu: ${futureProfit(goodsInfo)} ${goodsInfo[2].price.currency}`);
-    console.log(`- maksimali galima parduotuves apyvarta: ${maxProfit(goodsInfo)} ${goodsInfo[2].price.currency}`);
+    console.log(`- suprekiauta suma: ${profit(goodsInfo)} ${currency}`);
+    console.log(`- galimu pardavimu: ${futureProfit(goodsInfo)} ${currency}`);
+    console.log(`- maksimali galima parduotuves apyvarta: ${maxProfit(goodsInfo)} ${currency}`);
 
     console.log('************************************')
 
