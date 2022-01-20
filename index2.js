@@ -1,7 +1,7 @@
-const futureProfit = require("./lib/futureProfit.js");
+const futureProfit = require("./lib/futureProfit2.js");
 const jsonParse = require("./lib/jsonParse.js");
 const readFile = require("./lib/readFile.js");
-const profit = require("./lib/profit.js");
+const profit = require("./lib/profit2.js");
 const printList = require("./lib/printList.js");
 const inStockTotalCount = require("./lib/inStockTotalCount.js");
 
